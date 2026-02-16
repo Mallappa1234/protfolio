@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mallappa - Python Full-Stack Developer based in Bengaluru, India. Specializing in Django, Flask, React, and building scalable web applications.">
+    <meta name="keywords" content="Python Developer, Full-Stack Developer, Django, Flask, React, Bengaluru, Web Development, Portfolio">
+    <meta name="author" content="Mallappa">
+    <title>M M | Python Full-Stack Developer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap');
+        
+        :root {
+            --primary: 16 185 129; /* emerald-500 */
+        }
+        
+        .tailwind-content {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .logo-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .hero-bg {
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: rgb(16 185 129);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after,
+        .nav-link.active:after {
+            width: 100%;
+        }
+
+        .skill-bar {
+            transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .timeline-dot {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="tailwind-content bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 bg-white/90 dark:bg-black/90 backdrop-blur-lg border-b border-zinc-200 dark:border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-emerald-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl logo-font">M</div>
+                <div>
+                    <span class="text-2xl font-semibold tracking-tighter logo-font"></span>
+                </div>
+            </div>
+            
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-10 text-sm font-medium">
+                <a href="#home" onclick="navigateToSection('home')" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-500 transition-colors">Home</a>
+                <a href="#about" onclick="navigateToSection('about')" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-500 transition-colors">About</a>
+                <a href="#projects" onclick="navigateToSection('projects')" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-500 transition-colors">Projects</a>
+                <a href="#skills" onclick="navigateToSection('skills')" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-500 transition-colors">Skills</a>
+                <a href="#education" onclick="navigateToSection('education')" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-500 transition-colors">Education</a>
+                <a href="#contact" onclick="navigateToSection('contact')" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-500 transition-colors">Contact</a>
+            </div>
+            
+            <!-- Right Side -->
+            <div class="flex items-center gap-6">
+                <!-- Theme Toggle removed -->
+                
+                <!-- Hire Me Button -->
+                <a href="#contact" 
+                   onclick="navigateToSection('contact')"
+                   class="hidden md:block px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-3xl transition-all shadow-lg shadow-emerald-200 dark:shadow-emerald-900/50">
+                    Hire Me
+                </a>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button"
+                        class="md:hidden p-3 rounded-2xl bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800">
+            <div class="px-6 py-8 flex flex-col gap-6 text-lg font-medium">
+                <a href="#home" onclick="navigateToSection('home'); toggleMobileMenu()" class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-600">Home</a>
+                <a href="#about" onclick="navigateToSection('about'); toggleMobileMenu()" class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-600">About</a>
+                <a href="#projects" onclick="navigateToSection('projects'); toggleMobileMenu()" class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-600">Projects</a>
+                <a href="#skills" onclick="navigateToSection('skills'); toggleMobileMenu()" class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-600">Skills</a>
+                <a href="#education" onclick="navigateToSection('education'); toggleMobileMenu()" class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-600">Education</a>
+                <a href="#contact" onclick="navigateToSection('contact'); toggleMobileMenu()" class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-600">Contact</a>
+                
+                <div class="pt-6 border-t border-zinc-200 dark:border-zinc-700">
+                    <a href="#contact" onclick="navigateToSection('contact'); toggleMobileMenu()" 
+                       class="block w-full py-4 bg-emerald-600 text-white text-center font-semibold rounded-3xl">
+                        Let's Connect
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home" class="hero-bg min-h-screen flex items-center relative">
+        <div class="max-w-7xl mx-auto px-6 py-20 md:py-32 grid md:grid-cols-12 gap-12 items-center">
+            <!-- Left Content -->
+            <div class="md:col-span-7 space-y-8">
+                <div class="inline-flex items-center gap-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md px-6 py-2 rounded-3xl text-sm font-medium border border-white/50 dark:border-zinc-700">
+                    <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                    <span class="text-emerald-600 dark:text-emerald-400">Available for opportunities</span>
+                </div>
+                
+                <div class="space-y-4">
+                    <h1 class="text-6xl md:text-7xl font-bold tracking-tighter leading-none logo-font">
+                        Hi, I'm <span class="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">Mallappa</span>
+                    </h1>
+                    <p class="text-4xl md:text-5xl font-semibold text-zinc-600 dark:text-zinc-400 tracking-tight">
+                        Python Full-Stack Developer
+                    </p>
+                </div>
+                
+                <p class="max-w-lg text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    I build <span class="font-semibold text-emerald-600">scalable, beautiful web applications</span> that solve real problems. 
+                    Based in Bengaluru, crafting digital experiences with Python, Django &amp; React.
+                </p>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap gap-4">
+                    <a href="#projects" 
+                       onclick="navigateToSection('projects')"
+                       class="group px-10 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-3xl flex items-center gap-3 transition-all text-lg">
+                        Explore Projects
+                        <span class="group-hover:translate-x-1 transition">→</span>
+                    </a>
+                    <a href="Cognizant resume.pdf" download
+                       class="px-10 py-4 border-2 border-zinc-300 dark:border-zinc-700 hover:border-emerald-600 font-semibold rounded-3xl flex items-center gap-3 transition-all text-lg">
+                        <i class="fa-solid fa-download"></i>
+                        Download Resume
+                    </a>
+                </div>
+                
+                <!-- Trust Signals -->
+                <div class="flex items-center gap-12 pt-8">
+                    <div>
+                        <div class="text-4xl font-bold text-emerald-600">2+</div>
+                        <div class="text-sm text-zinc-500 dark:text-zinc-400 tracking-widest uppercase">Projects</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-emerald-600">🎓</div>
+                        <div class="text-sm text-zinc-500 dark:text-zinc-400 tracking-widest uppercase">BCA Graduate</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-emerald-600">6.42</div>
+                        <div class="text-sm text-zinc-500 dark:text-zinc-400 tracking-widest uppercase">CGPA</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Visual -->
+            <div class="md:col-span-5 relative">
+                <div class="relative">
+                    <!-- Main Avatar -->
+                    <div class="relative z-10">
+                        <img src="./mallappa.jpeg" 
+                             alt="Mallappa - Python Full-Stack Developer"
+                             class="w-full aspect-square object-cover rounded-[3.5rem] shadow-2xl ring-8 ring-white dark:ring-zinc-900">
+                    </div>
+                    
+                    <!-- Floating Badges -->
+                    <div class="absolute -top-6 -left-6 bg-white dark:bg-zinc-800 p-5 rounded-3xl shadow-xl flex items-center gap-4">
+                        <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/50 rounded-2xl flex items-center justify-center text-3xl">🐍</div>
+                        <div>
+                            <div class="font-semibold text-emerald-600">Python Expert</div>
+                            <div class="text-xs text-zinc-500">Fresher</div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -bottom-8 -right-8 bg-white dark:bg-zinc-800 p-6 rounded-3xl shadow-xl">
+                        <div class="flex items-center gap-3">
+                            <div class="flex -space-x-3">
+                                <div class="w-8 h-8 bg-blue-500 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-white">R</div>
+                                <div class="w-8 h-8 bg-purple-500 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-white">D</div>
+                            </div>
+                            <div class="text-sm">
+                                <div class="font-medium">Built for</div>
+                                <div class="text-emerald-600 font-semibold">Top Startups</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Location -->
+                    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl px-8 py-3 rounded-3xl shadow flex items-center gap-3 text-sm font-medium">
+                        <i class="fa-solid fa-location-dot text-emerald-500"></i>
+                        <span>Bengaluru, Karnataka</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 hidden md:flex flex-col items-center gap-2 text-xs text-zinc-400">
+            <div class="w-px h-12 bg-gradient-to-b from-transparent via-zinc-400 to-transparent"></div>
+            <span class="tracking-[3px] uppercase">Scroll</span>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-28 bg-white dark:bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-16 items-center">
+                <!-- Text -->
+                <div class="md:col-span-7">
+                    <div class="inline-block px-5 py-2 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-mono tracking-widest rounded-full mb-6">
+                        CHAPTER 01 — THE STORY
+                    </div>
+                    <h2 class="text-5xl font-bold tracking-tighter leading-none mb-8">About Me</h2>
+                    
+                    <div class="space-y-6 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+                        <p>
+                            I'm Mallappa, a <span class="font-semibold text-emerald-600">Python Full-Stack Developer</span> fresher from Bengaluru with hands-on experience in <span class="font-semibold">Django, Flask, HTML, CSS, JavaScript, SQL, and SQLite</span>. I build web applications that are functional, scalable, and user-friendly.
+                        </p>
+                        <p>
+                            Passionate about learning and taking on challenging projects, I'm eager to contribute to innovative solutions while growing as a developer in the dynamic tech industry.
+                        </p>
+                    </div>
+                    
+                    <!-- Quick Facts -->
+                    <div class="mt-12 grid grid-cols-3 gap-8">
+                        <div>
+                            <div class="text-emerald-600 text-5xl font-bold">2025</div>
+                            <div class="text-sm text-zinc-500 mt-1">Graduation Year</div>
+                        </div>
+                        <div>
+                            <div class="text-emerald-600 text-5xl font-bold">🇮🇳</div>
+                            <div class="text-sm text-zinc-500 mt-1">From Karnataka</div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+                <!-- Image + Stats -->
+                <div class="md:col-span-5">
+                    <div class="bg-zinc-100 dark:bg-zinc-900 p-2 rounded-[2.75rem]">
+                        <img src="https://picsum.photos/id/180/800/600" 
+                             alt="Mallappa coding on laptop"
+                             class="rounded-3xl">
+                    </div>
+                    
+                    <!-- Stats Bar -->
+                   
+                    </div>
+                </div>
+
+                    <p class="mt-6 text-lg text-zinc-300">Open to internships and entry-level roles in web development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="py-28 bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <div class="inline-block px-5 py-2 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-mono tracking-widest rounded-full mb-4">
+                        CHAPTER 02 — SUPERPOWERS
+                    </div>
+                    <h2 class="text-5xl font-bold tracking-tighter">Skills &amp; Expertise</h2>
+                </div>
+                <a href="#" onclick="event.preventDefault()" 
+                   class="hidden md:flex items-center gap-2 text-sm font-medium text-emerald-600 hover:text-emerald-700">
+                    View full tech stack <span class="text-xl">→</span>
+                </a>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Skill 1 - Python -->
+                <div class="bg-white dark:bg-zinc-900 rounded-3xl p-8 group">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center text-4xl">🐍</div>
+                            <div>
+                                <div class="font-semibold text-xl">Python</div>
+                                <div class="text-emerald-600 text-sm font-medium">Core Language</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-4xl font-bold text-emerald-600">80%</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="skill-bar h-full bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full" style="width: 80%"></div>
+                    </div>
+                    <div class="mt-6 text-xs text-zinc-500 flex gap-6">
+                        <span>Django</span>
+                        <span>Flask</span>
+                        <span>OOP</span>
+                    </div>
+                </div>
+                
+                <!-- Skill 2 - Frontend -->
+                <div class="bg-white dark:bg-zinc-900 rounded-3xl p-8 group">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-4xl">🎨</div>
+                            <div>
+                                <div class="font-semibold text-xl">Frontend</div>
+                                <div class="text-emerald-600 text-sm font-medium">Web Design</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-4xl font-bold text-emerald-600">75%</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="skill-bar h-full bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <div class="mt-6 text-xs text-zinc-500 flex gap-6">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                    </div>
+                </div>
+                
+                <!-- Skill 3 - Databases & SQL -->
+                <div class="bg-white dark:bg-zinc-900 rounded-3xl p-8 group">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center text-4xl">🗄️</div>
+                            <div>
+                                <div class="font-semibold text-xl">Databases</div>
+                                <div class="text-emerald-600 text-sm font-medium">Data Layer</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-4xl font-bold text-emerald-600">78%</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="skill-bar h-full bg-gradient-to-r from-purple-400 to-violet-400 rounded-full" style="width: 78%"></div>
+                    </div>
+                    <div class="mt-6 text-xs text-zinc-500 flex gap-6">
+                        <span>SQL</span>
+                        <span>MySQL</span>
+                        <span>SQLite</span>
+                    </div>
+                </div>
+                
+                <!-- Skill 4 - Django Framework -->
+                <div class="bg-white dark:bg-zinc-900 rounded-3xl p-8 group">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center text-4xl">⚙️</div>
+                            <div>
+                                <div class="font-semibold text-xl">Django</div>
+                                <div class="text-emerald-600 text-sm font-medium">Framework</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-4xl font-bold text-emerald-600">82%</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="skill-bar h-full bg-gradient-to-r from-green-400 to-emerald-400 rounded-full" style="width: 82%"></div>
+                    </div>
+                    <div class="mt-6 text-xs text-zinc-500 flex gap-6">
+                        <span>Django ORM</span>
+                        <span>Forms</span>
+                        <span>REST</span>
+                    </div>
+                </div>
+                
+                <!-- Skill 5 - Version Control & Tools -->
+                <div class="bg-white dark:bg-zinc-900 rounded-3xl p-8 group">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-red-100 dark:bg-red-900/30 rounded-2xl flex items-center justify-center text-4xl">🔧</div>
+                            <div>
+                                <div class="font-semibold text-xl">Tools</div>
+                                <div class="text-emerald-600 text-sm font-medium">Development</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-4xl font-bold text-emerald-600">85%</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="skill-bar h-full bg-gradient-to-r from-red-400 to-pink-400 rounded-full" style="width: 85%"></div>
+                    </div>
+                    <div class="mt-6 text-xs text-zinc-500 flex gap-6">
+                        <span>Git</span>
+                        <span>GitHub</span>
+                        <span>VS Code</span>
+                    </div>
+                </div>
+                
+                <!-- Skill 6 - Additional Skills -->
+                <div class="bg-white dark:bg-zinc-900 rounded-3xl p-8 group">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-yellow-100 dark:bg-yellow-900/30 rounded-2xl flex items-center justify-center text-4xl">📚</div>
+                            <div>
+                                <div class="font-semibold text-xl">More Skills</div>
+                                <div class="text-emerald-600 text-sm font-medium">Frameworks</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-4xl font-bold text-emerald-600">70%</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="skill-bar h-full bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full" style="width: 70%"></div>
+                    </div>
+                    <div class="mt-6 text-xs text-zinc-500 flex gap-6">
+                        <span>Bootstrap</span>
+                        <span>Tailwind</span>
+                        <span>React</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- More Skills Grid -->
+            <div class="mt-20">
+                <div class="text-center text-xs uppercase tracking-[2px] text-zinc-400 mb-8">Tech Stack I Work With</div>
+                <div class="flex flex-wrap justify-center gap-x-12 gap-y-10 text-4xl text-zinc-400">
+                    <div class="hover:text-emerald-600 transition-colors cursor-pointer" title="Python">🐍</div>
+                    <div class="hover:text-emerald-600 transition-colors cursor-pointer" title="Django">⚙️</div>
+                    <div class="hover:text-emerald-600 transition-colors cursor-pointer" title="HTML">🏗️</div>
+                    <div class="hover:text-emerald-600 transition-colors cursor-pointer" title="CSS">🎨</div>
+                    <div class="hover:text-emerald-600 transition-colors cursor-pointer" title="JavaScript">🟨</div>
+                    <div class="hover:text-emerald-600 transition-colors cursor-pointer" title="SQL">🗄️</div>
+                    <div class="hover:text-emerald-600 transition-colors cursor-pointer" title="MySQL">📊</div>
+                    <div class="hover:text-emerald-600 transition-colors cursor-pointer" title="Git">🔀</div>
+                    <div class="hover:text-emerald-600 transition-colors cursor-pointer" title="GitHub">🐙</div>
+                    <div class="hover:text-emerald-600 transition-colors cursor-pointer" title="Bootstrap">🎯</div>
+                    <div class="hover:text-emerald-600 transition-colors cursor-pointer" title="React">⚛️</div>
+                    <div class="hover:text-emerald-600 transition-colors cursor-pointer" title="REST API">🔗</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    
+    <!-- CERTIFICATES & LANGUAGES -->
+    <section id="certificates" class="py-20 bg-white dark:bg-black">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-8">
+                <div class="inline-block px-4 py-2 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-mono tracking-widest rounded-full">CERTIFICATES & LANGUAGES</div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-zinc-50 dark:bg-zinc-900 rounded-3xl p-8">
+                    <h3 class="font-semibold text-xl mb-4">Certificates</h3>
+                    <ul class="text-sm text-zinc-600 dark:text-zinc-400 space-y-2">
+                        <li>Full Stack Development Certificate — College</li>
+                        <li>Google Data Analytics Certificate — Coursera (2023)</li>
+                    </ul>
+                </div>
+
+                <div class="bg-zinc-50 dark:bg-zinc-900 rounded-3xl p-8">
+                    <h3 class="font-semibold text-xl mb-4">Languages</h3>
+                    <ul class="text-sm text-zinc-600 dark:text-zinc-400 space-y-2">
+                        <li>English — Professional</li>
+                        <li>Kannada — Native</li>
+                        <li>Telugu — Conversational</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-28 bg-white dark:bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <div class="inline-block px-5 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-xs font-mono tracking-widest rounded-full mb-4">
+                        CHAPTER 03 — WORK
+                    </div>
+                    <h2 class="text-5xl font-bold tracking-tighter">Featured Projects</h2>
+                </div>
+                <a href="https://github.com/Mallappa1234" target="_blank" 
+                   class="flex items-center gap-3 text-sm group">
+                    <span class="font-medium">All Projects on GitHub</span>
+                    <span class="text-2xl group-hover:rotate-45 transition">↗</span>
+                </a>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- Project 1 - CRM System -->
+                <div class="project-card bg-zinc-50 dark:bg-zinc-900 rounded-3xl overflow-hidden group">
+                    <div class="relative">
+                        <img src="./images.jfif" 
+                             class="w-full h-60 object-cover transition-all group-hover:scale-105" 
+                             alt="CRM System">
+                        <div class="absolute top-4 right-4 bg-white dark:bg-zinc-800 text-xs font-mono px-3 py-1.5 rounded-2xl shadow">
+                            FEB 2025
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-semibold text-2xl">CRM System</h3>
+                                <p class="text-emerald-600 text-sm">Customer Relationship Management</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="https://github.com/Mallappa1234" target="_blank" class="w-9 h-9 flex items-center justify-center bg-white dark:bg-zinc-800 rounded-2xl hover:bg-emerald-50">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                                <a href="#" class="w-9 h-9 flex items-center justify-center bg-emerald-600 text-white rounded-2xl">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="mt-6 text-zinc-600 dark:text-zinc-400 text-[15px] leading-relaxed">
+                            Built modules for customer management, sales pipeline, and support ticketing with role-based authentication and dashboard analytics.
+                        </p>
+                        <ul class="mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li class="flex gap-2"><span class="text-emerald-500">•</span> CRUD operations and optimized SQL queries</li>
+                            <li class="flex gap-2"><span class="text-emerald-500">•</span> Dashboard analytics using charts</li>
+                            <li class="flex gap-2"><span class="text-emerald-500">•</span> Improved response time via DB query optimization</li>
+                        </ul>
+                        <div class="mt-8 flex flex-wrap gap-2">
+                            <span class="text-xs bg-white dark:bg-zinc-800 px-4 py-2 rounded-3xl">Django</span>
+                            <span class="text-xs bg-white dark:bg-zinc-800 px-4 py-2 rounded-3xl">Python</span>
+                            <span class="text-xs bg-white dark:bg-zinc-800 px-4 py-2 rounded-3xl">MySQL</span>
+                            <span class="text-xs bg-white dark:bg-zinc-800 px-4 py-2 rounded-3xl">HTML</span>
+                            <span class="text-xs bg-white dark:bg-zinc-800 px-4 py-2 rounded-3xl">CSS</span>
+                            <span class="text-xs bg-white dark:bg-zinc-800 px-4 py-2 rounded-3xl">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 - Hotel Booking System -->
+                <div class="project-card bg-zinc-50 dark:bg-zinc-900 rounded-3xl overflow-hidden group">
+                    <div class="relative">
+                        <img src="./hotel.jfif" 
+                             class="w-full h-60 object-cover transition-all group-hover:scale-105" 
+                             alt="Hotel Booking System">
+                        <div class="absolute top-4 right-4 bg-white/90 dark:bg-zinc-800/90 text-xs font-mono px-3 py-1.5 rounded-2xl shadow backdrop-blur">
+                            JULY 2025
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-semibold text-2xl">Hotel Booking</h3>
+                                <p class="text-emerald-600 text-sm">Full-Stack Reservation System</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="https://github.com/Mallappa1234" class="w-9 h-9 flex items-center justify-center bg-white dark:bg-zinc-800 rounded-2xl hover:bg-emerald-50">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                                <a href="#" class="w-9 h-9 flex items-center justify-center bg-emerald-600 text-white rounded-2xl">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="mt-6 text-zinc-600 dark:text-zinc-400 text-[15px] leading-relaxed">
+                            Full-stack Hotel Reservation System enabling seamless room booking, search, and user management with real-time updates.
+                        </p>
+                        <ul class="mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li class="flex gap-2"><span class="text-emerald-500">•</span> RESTful APIs using Node.js and Express.js</li>
+                            <li class="flex gap-2"><span class="text-emerald-500">•</span> MongoDB for efficient data storage</li>
+                            <li class="flex gap-2"><span class="text-emerald-500">•</span> Interactive React frontend with responsive UI</li>
+                        </ul>
+                        <div class="mt-8 flex flex-wrap gap-2">
+                            <span class="text-xs bg-white dark:bg-zinc-800 px-4 py-2 rounded-3xl">React</span>
+                            <span class="text-xs bg-white dark:bg-zinc-800 px-4 py-2 rounded-3xl">Node.js</span>
+                            <span class="text-xs bg-white dark:bg-zinc-800 px-4 py-2 rounded-3xl">Express.js</span>
+                            <span class="text-xs bg-white dark:bg-zinc-800 px-4 py-2 rounded-3xl">MongoDB</span>
+                            <span class="text-xs bg-white dark:bg-zinc-800 px-4 py-2 rounded-3xl">Tailwind CSS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="py-28 bg-zinc-50 dark:bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16">
+                <div class="inline-block px-5 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-mono tracking-widest rounded-full mb-4">
+                    CHAPTER 04 — EDUCATION
+                </div>
+                <h2 class="text-5xl font-bold tracking-tighter">Education</h2>
+                <p class="mt-6 text-zinc-600 dark:text-zinc-400 max-w-lg">
+                    Building a strong foundation in Computer Applications with focus on practical learning and academic excellence.
+                </p>
+            </div>
+            
+            <!-- Education Timeline -->
+            <div class="space-y-8">
+                <!-- Education 1 - BCA -->
+                <div class="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-8 border-l-4 border-emerald-500">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="text-3xl">🎓</span>
+                                    <div>
+                                        <h3 class="text-2xl font-semibold">BCA - Computer Applications</h3>
+                                        <p class="text-emerald-600 text-sm font-medium">KLE'S JTCOLLEGE, Gadag</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm font-mono text-zinc-500">2022 — 2025</div>
+                                <div class="text-emerald-600 font-bold text-2xl mt-2">6.42</div>
+                                <div class="text-xs text-zinc-500">CGPA</div>
+                            </div>
+                        </div>
+                        <p class="text-zinc-600 dark:text-zinc-400 mt-4 leading-relaxed">
+                            Pursuing Bachelor of Computer Applications with focus on software development, database management, and web technologies.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Education 2 - Pre-University -->
+                <div class="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-8 border-l-4 border-blue-500">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="text-3xl">📚</span>
+                                    <div>
+                                        <h3 class="text-2xl font-semibold">Pre-University</h3>
+                                        <p class="text-emerald-600 text-sm font-medium">SDMINDPRESIPUCOLLEGEUJIRE, Ujire</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm font-mono text-zinc-500">2020 — 2022</div>
+                                <div class="text-emerald-600 font-bold text-2xl mt-2">60.8%</div>
+                                <div class="text-xs text-zinc-500">Percentage</div>
+                            </div>
+                        </div>
+                        <p class="text-zinc-600 dark:text-zinc-400 mt-4 leading-relaxed">
+                            Completed Pre-University education with strong foundation in science and mathematics subjects.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Education 3 - High School -->
+                <div class="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-8 border-l-4 border-purple-500">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="text-3xl">🏫</span>
+                                    <div>
+                                        <h3 class="text-2xl font-semibold">Department of Pre-University Education</h3>
+                                        <p class="text-emerald-600 text-sm font-medium">CHAITHANYA RESIDENTIAL H.S, Murkwad</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm font-mono text-zinc-500">2020</div>
+                                <div class="text-emerald-600 font-bold text-2xl mt-2">62.08%</div>
+                                <div class="text-xs text-zinc-500">Percentage</div>
+                            </div>
+                        </div>
+                        <p class="text-zinc-600 dark:text-zinc-400 mt-4 leading-relaxed">
+                            Completed high school education with focus on academics and overall personality development.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-28 bg-gradient-to-b from-white to-emerald-50 dark:from-zinc-950 dark:to-black">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="inline-flex px-8 py-3 bg-white dark:bg-zinc-900 rounded-3xl shadow items-center gap-4">
+                    <span class="text-3xl">👋</span>
+                    <span class="text-xl font-medium">Let's build something amazing together</span>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-5 gap-16">
+              
+                
+                <!-- Contact Info -->
+                <div class="md:col-span-2 space-y-10 pt-6">
+                    <div>
+                        <div class="text-emerald-600 text-xs font-mono tracking-widest mb-2">EMAIL</div>
+                        <a href="mailto:mallappamadhalli123@gmail.com" 
+                           class="text-2xl font-medium hover:text-emerald-600 transition">mallappamadhalli123@gmail.com</a>
+                    </div>
+                    
+                    
+                    <div>
+                        <div class="text-emerald-600 text-xs font-mono tracking-widest mb-4">CONNECT</div>
+                        <div class="flex gap-6 text-3xl">
+                            <a href="https://www.linkedin.com/in/mallappa-madhalli-3b2630240/" target="_blank" class="hover:text-emerald-600 transition"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="https://github.com/Mallappa1234" target="_blank" class="hover:text-emerald-600 transition"><i class="fa-brands fa-github"></i></a>
+                            <a href="https://twitter.com/mallappa_dev" target="_blank" class="hover:text-emerald-600 transition"><i class="fa-brands fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-8 border-t border-zinc-200 dark:border-zinc-700">
+                        <div class="text-xs text-zinc-400">CURRENTLY IN</div>
+                        <div class="font-medium">Bengaluru, Karnataka, India</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-zinc-950 text-zinc-400 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 bg-emerald-600 rounded-xl flex items-center justify-center text-white text-xs font-bold">M</div>
+                    <span class="text-xl text-white font-medium logo-font">Mallappa</span>
+                </div>
+                
+                <div class="text-sm text-center md:text-right">
+                    © 2026 Mallappa. Crafted with ❤️ in Bengaluru.<br>
+                    <span class="text-emerald-500">Made for the love of code.</span>
+                </div>
+                
+                <div class="flex gap-8 text-sm">
+                    <a href="#" class="hover:text-white transition">Privacy</a>
+                    <a href="#" class="hover:text-white transition">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Toast -->
+    <div id="success-toast" class="hidden fixed bottom-8 right-8 bg-emerald-600 text-white px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-4">
+        <i class="fa-solid fa-check-circle text-2xl"></i>
+        <div>
+            <div class="font-semibold">Message Sent!</div>
+            <div class="text-sm opacity-90">I'll reply within 24 hours.</div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind Script already loaded via CDN
+        
+        function initTailwind() {
+            // No need, CDN handles it
+        }
+        
+        // Dark Mode Toggle (robust)
+        /* Theme toggle removed - initTheme() intentionally omitted */
+
+// Run after DOM loads
+document.addEventListener('DOMContentLoaded', initTheme);
+
+
+            // Initialize from stored preference or system
+            const stored = localStorage.getItem('theme');
+            if (stored === 'dark') {
+                setDarkMode(true);
+            } else if (stored === 'light') {
+                setDarkMode(false);
+            } else {
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setDarkMode(prefersDark);
+            }
+
+            // store current mode on the button for reliable toggling
+            toggle.dataset.mode = html.classList.contains('dark') ? 'dark' : 'light';
+
+            toggle.addEventListener('click', () => {
+                const current = toggle.dataset.mode === 'dark' ? 'dark' : 'light';
+                const nextIsDark = current === 'dark' ? false : true;
+                setDarkMode(nextIsDark);
+                toggle.dataset.mode = nextIsDark ? 'dark' : 'light';
+            });
+        
+        
+        // Mobile Menu
+        function initMobileMenu() {
+            const button = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu');
+            
+            button.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+                const icon = button.querySelector('i');
+                if (menu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.add('fa-xmark');
+                    icon.classList.remove('fa-bars');
+                }
+            });
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.add('hidden');
+            const button = document.getElementById('mobile-menu-button');
+            const icon = button.querySelector('i');
+            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars');
+        }
+        
+        // Smooth Scroll & Active Nav
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            function setActiveLink() {
+                let current = '';
+                const sections = document.querySelectorAll('section[id]');
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (scrollY >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active', 'text-emerald-600');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active', 'text-emerald-600');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', setActiveLink);
+            setActiveLink();
+        }
+        
+        // Form Submission
+        function initContactForm() {
+            const form = document.getElementById('contact-form');
+            const toast = document.getElementById('success-toast');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate sending
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = `
+                    <svg class="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                    </svg>
+                    SENDING...
+                `;
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    toast.classList.remove('hidden');
+                    toast.style.transform = 'translateY(0)';
+                    
+                    // Reset form
+                    form.reset();
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Hide toast after 4s
+                    setTimeout(() => {
+                        toast.style.transform = 'translateY(100px)';
+                        setTimeout(() => {
+                            toast.classList.add('hidden');
+                        }, 500);
+                    }, 4000);
+                }, 1800);
+            });
+        }
+        
+        // Animate skill bars on scroll
+        function initSkillBars() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const bars = entry.target.querySelectorAll('.skill-bar');
+                        bars.forEach(bar => {
+                            const width = bar.style.width;
+                            bar.style.width = '0%';
+                            setTimeout(() => {
+                                bar.style.width = width;
+                            }, 100);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            const skillsSection = document.getElementById('skills');
+            if (skillsSection) observer.observe(skillsSection);
+        }
+        
+        // Scroll to section helper
+        function navigateToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const navHeight = 80;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - navHeight;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // Keyboard shortcuts
+        function initKeyboard() {
+            document.addEventListener('keydown', (e) => {
+                if (e.metaKey && e.key === 'k') {
+                    e.preventDefault();
+                    // Could open search, but for now alert
+                    alert("🔍 Command palette coming soon! 👀");
+                }
+            });
+        }
+        
+        // Initialize everything
+        function initialize() {
+            initMobileMenu();
+            initNavigation();
+            initContactForm();
+            initSkillBars();
+            initKeyboard();
+
+            // Preload images for better perf (optional)
+            console.log('%cPortfolio loaded successfully ✨', 'color: #10b981; font-family: monospace');
+        }
+        
+        // Run on load
+        window.onload = initialize;
+    </script>
+</body>
+</html>
